@@ -1,2 +1,9 @@
 /.project
 /node_modules/
+/public/.DS_Store
+/partials/.DS_Store
+/js/.DS_Store
+/js/services/.DS_Store
+/js/lib/.DS_Store
+/js/directives/.DS_Store
+/js/controllers/.DS_Store
