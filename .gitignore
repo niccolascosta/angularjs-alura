@@ -1,5 +1,6 @@
 /.project
 /node_modules/
+/.idea/
 /public/.DS_Store
 /partials/.DS_Store
 /js/.DS_Store
