@@ -1,5 +1,5 @@
-angular.module('minhasDiretivas', [])
-    .directive('meuPainel', function() {
+angular.module('minhasDiretivas', ['meusServicos'])
+    .directive('meuPainel', function () {
 
         var ddo = {};
 
@@ -14,26 +14,74 @@ angular.module('minhasDiretivas', [])
 
         return ddo;
     })
-    .directive('minhaFoto', function(){
+    .directive('minhaFoto', function () {
 
         var ddo = {
             restrict: "AE",
             scope: {
-                titulo:'@',
-                url:'@'
+                titulo: '@',
+                url: '@'
             },
-            templateUrl:'js/directives/minha-foto.html'
+            templateUrl: 'js/directives/minha-foto.html'
         };
         return ddo;
     })
-    .directive('meuBotaoPerigo', function() {
+    .directive('meuBotaoPerigo', function () {
         var ddo = {};
         ddo.restrict = "E";
         ddo.scope = {
             nome: '@',
-            acao : '&'
+            acao: '&'
         }
         ddo.template = '<button class="btn btn-danger btn-block" ng-click="acao()">{{nome}}</button>';
+
+        return ddo;
+    })
+    .directive('meusTitulos', function () {
+        var ddo = {};
+
+        ddo.restrict = 'E';
+
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+
+
+       ddo.link = function (scope, element){
+           scope.$on('fotoDeletada', function (foto) {
+               var indiceDaFoto = scope.titulos.indexOf(foto.titulo);
+               scope.titulos.splice(indiceDaFoto, 1);
+           });
+       }
+
+        ddo.controller = function ($scope, recursoFoto) {
+            recursoFoto.query(function (fotos) {
+                $scope.titulos = fotos.map(function (foto) {
+                    return foto.titulo;
+                });
+            });
+        };
+
+        return ddo;
+    })
+    .directive('meuFocus', function () {
+        var ddo = {};
+        ddo.restrict = "A";
+        /*ddo.scope = {
+         focado: '='
+         };*/
+
+        ddo.link = function (scope, element) {
+            scope.$on('fotoCadastrada', function () {
+                element[0].focus();
+            });
+            /* scope.$watch('focado', function(novoValor, valorAntigo) {
+
+             // executado toda vez que o valor mudar
+             if (scope.focado) {
+             element[0].focus();
+             scope.focado = false;
+             }
+             });*/
+        };
 
         return ddo;
     });

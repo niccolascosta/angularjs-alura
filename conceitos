@@ -1,0 +1,9 @@
+° Usamos @ quando queremos realizar uma cópia do valor passado para a diretiva no HTML para dentro do escopo isolado na diretiva.
+    Essa cópia é sempre um valor em string.
+° Usamos & geralmente quando queremos executar dentro de uma diretiva uma função que pertence a um escopo pai, o de um controller.
+° Usamos = quando queremos que tanto a diretiva quanto o controller acessem o mesmo dado, isto é,
+    qualquer alteração no escopo privado da diretiva afetará a propriedade do controller
+    e qualquer alteração nesta propriedade no controller afetará a diretiva. Temos aqui uma comunicação bidirecional.
+
+° O $broadcast lança o evento para os escopos filhos. No caso, como chamamos $scope.$broadcast, o evento não sobe pro pai - o $rootScope.
+Para isso, usamos o $emit. Então um $scope.$emit vai fazer o evento subir em direção aos escopos pais e atingir o $rootScope.
